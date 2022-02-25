@@ -6,7 +6,7 @@ import { performanceNow } from './lib/performance-now';
 import { randomIntFromInterval } from './lib/randomNumber';
 
 
-const ladipage_id = '617a20854456620012e4fbea';
+const ladipage_id = '62185d22c113db00169769f7';
 const form_config_id = '61784bb470b33200122469a1';
 
 const LAST_NAME = ['Nguyễn', 'Lê', 'Trần', 'Phan', 'Võ', 'Hoàng', 'Đặng', 'Bùi', 'DDoox'];
@@ -41,6 +41,7 @@ const checkout = async (name: string, add: string, phone: string) => {
 };
 
 const main = async () => {
+  const maxOrderCount = randomIntFromInterval(1, 3);
   const addInfo = [];
   const addData = await getRandomAdd();
   if (Array.isArray(addData?.addNameArr)) {
@@ -66,24 +67,22 @@ const main = async () => {
   }
 
   const jobs: any = [];
-  for (let i = 0; i < addInfo.length; i++) {
+  for (let i = 0; i < maxOrderCount; i++) {
     const _add = addInfo[i];
     jobs.push(new Promise(async (resolve) => {
-      await checkout(_add.name, _add.add, _add.telephone);
-      resolve(null);
+      setTimeout(async () => {
+        console.log(_add.name, _add.add, _add.telephone);
+        await checkout(_add.name, _add.add, _add.telephone);
+        resolve(null);
+      }, randomIntFromInterval(3000, 50000));
     }));
   }
 
   await Promise.all(jobs);
 };
 
-// checkout(
-//   'Anh Tuấn',
-//   '5791, Ấp 74, Xã Danh Hường, Huyện 60 Thái Bình',
-//   '0989648797'
-// );
 const job = new CronJob('0 * * * * *', () => {
-  console.log('You will see this message every minutes');
+  console.log('Run checkout');
   main();
 }, null, true, 'America/Los_Angeles');
 job.start();

@@ -60,6 +60,7 @@
     "functional/no-loop-statement": "off",
     "functional/prefer-readonly-type": "off",
     "functional/immutable-data": "off",
-    "no-async-promise-executor": "off"
+    "no-async-promise-executor": "off",
+    "no-constant-condition": "off"
   }
 }
