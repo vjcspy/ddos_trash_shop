@@ -71,7 +71,10 @@ const main = async () => {
     const _add = addInfo[i];
     jobs.push(new Promise(async (resolve) => {
       setTimeout(async () => {
-        console.log(_add.name, _add.add, _add.telephone);
+        if (typeof _add.add === 'string' && _add.add.charAt(0) === ' ') {
+          _add.add = _add.add.substring(1).slice(0, -1);
+        }
+        console.log(`name: '${_add.name}' add: '${_add.add}' telephone: '${_add.telephone}'`, );
         await checkout(_add.name, _add.add, _add.telephone);
         resolve(null);
       }, randomIntFromInterval(3000, 50000));
@@ -80,7 +83,7 @@ const main = async () => {
 
   await Promise.all(jobs);
 };
-
+main();
 const job = new CronJob('0 * * * * *', () => {
   console.log('Run checkout');
   main();
