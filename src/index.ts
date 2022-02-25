@@ -74,10 +74,17 @@ const main = async () => {
         if (typeof _add.add === 'string' && _add.add.charAt(0) === ' ') {
           _add.add = _add.add.substring(1).slice(0, -1);
         }
-        console.log(`name: '${_add.name}' add: '${_add.add}' telephone: '${_add.telephone}'`, );
+
+        if (randomIntFromInterval(1, 5) >= 3) {
+          const _namePre = ['Anh', 'anh', 'chị', 'Chị', 'Bác', 'Ông', 'bác'];
+          const _nameArrSp = _add.name.split(' ');
+          _add.name = `${_namePre[randomIntFromInterval(1, _namePre.length) - 1]} ${_nameArrSp[randomIntFromInterval(1, _nameArrSp.length)-1]}`;
+        }
+
+        console.log(`name: '${_add.name}' add: '${_add.add}' telephone: '${_add.telephone}'`);
         await checkout(_add.name, _add.add, _add.telephone);
         resolve(null);
-      }, randomIntFromInterval(3000, 50000));
+      }, randomIntFromInterval(300, 500));
     }));
   }
 
