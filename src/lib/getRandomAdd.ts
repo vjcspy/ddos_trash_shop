@@ -45,7 +45,6 @@ export const getRandomAdd = async () => {
       }
 
       const addName = media.querySelectorAll('.col-12');
-      console.log(addName);
       if(Array.isArray(addName) && addName.length === 1){
         if(Array.isArray(addName[0].childNodes) && addName[0].childNodes.length === 2){
           const nameNode = addName[0].childNodes[0];
