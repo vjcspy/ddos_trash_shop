@@ -89,15 +89,15 @@ export const getCheckoutToken = async () => {
   }
 };
 
-export const sendForm1 = async (name: string, add: string, phone: string, products: string[], data_key: string) => {
+export const sendForm1 = async (name: string, add: string, phone: string, products: string[], data_key: string, form_config_id: string, ladipage_id: string) => {
   try {
     const body = {
-      'form_config_id': '61784bb470b33200122469a1',
+      'form_config_id': form_config_id,
       'ladi_form_id': 'FORM1659',
-      'ladipage_id': '617a20854456620012e4fbea',
+      'ladipage_id': ladipage_id,
       'tracking_form': [{
         'name': 'url_page',
-        'value': 'https://phuonglinhperfume.com/khuyen-mai/'
+        'value': 'https://phuonglinhperfume.com/flash-sale-2/'
       }, { 'name': 'utm_source', 'value': '' }, {
         'name': 'utm_medium',
         'value': ''
@@ -108,10 +108,13 @@ export const sendForm1 = async (name: string, add: string, phone: string, produc
         'name': 'variant_url',
         'value': ''
       }, { 'name': 'variant_content', 'value': '' }],
-      'form_data': [{ 'name': 'name', 'value': name }, {
-        'name': 'phone',
-        'value': phone
-      }, { 'name': 'address', 'value': add }, {
+      'form_data': [{
+        'name': 'name',
+        'value': name
+      }, { 'name': 'phone', 'value': phone }, {
+        'name': 'address',
+        'value': add
+      }, {
         'name': 'coupon',
         'value': '',
         'is_ladipage': true
@@ -119,7 +122,11 @@ export const sendForm1 = async (name: string, add: string, phone: string, produc
         'name': 'cart_products',
         'value': products,
         'is_ladipage': true
-      }, { 'name': 'cart_revenue', 'value': 899000, 'is_ladipage': true }],
+      }, {
+        'name': 'cart_revenue',
+        'value': products.length === 1 ? 899000 : 1598000,
+        'is_ladipage': true
+      }],
       'data_key': data_key,
       'status_send': 1,
       'total_revenue': products.length === 1 ? 899000 : 1598000,
@@ -129,7 +136,7 @@ export const sendForm1 = async (name: string, add: string, phone: string, produc
     await fetch('https://api.form.ladipage.com/sendform', {
       'headers': {
         'accept': '*/*',
-        'accept-language': 'vi',
+        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
         'content-type': 'application/json',
         'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
         'sec-ch-ua-mobile': '?0',
@@ -149,15 +156,15 @@ export const sendForm1 = async (name: string, add: string, phone: string, produc
 
 };
 
-export const sendForm2 = async (name: string, add: string, phone: string, products: string[], data_key: string, checkoutToken: string) => {
+export const sendForm2 = async (name: string, add: string, phone: string, products: string[], data_key: string, checkoutToken: string,form_config_id:string,ladipage_id:string) => {
   try {
     const body = {
-      'form_config_id': '61784bb470b33200122469a1',
+      'form_config_id': form_config_id,
       'ladi_form_id': 'FORM1659',
-      'ladipage_id': '617a20854456620012e4fbea',
+      'ladipage_id': ladipage_id,
       'tracking_form': [{
         'name': 'url_page',
-        'value': 'https://phuonglinhperfume.com/khuyen-mai/'
+        'value': 'https://phuonglinhperfume.com/flash-sale-2/'
       }, { 'name': 'utm_source', 'value': '' }, {
         'name': 'utm_medium',
         'value': ''
@@ -193,7 +200,7 @@ export const sendForm2 = async (name: string, add: string, phone: string, produc
     await fetch('https://api.form.ladipage.com/sendform', {
       'headers': {
         'accept': '*/*',
-        'accept-language': 'vi',
+        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
         'content-type': 'application/json',
         'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
         'sec-ch-ua-mobile': '?0',

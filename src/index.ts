@@ -7,10 +7,22 @@ import { randomIntFromInterval } from './lib/randomNumber';
 
 
 const ladipage_id = '62185d22c113db00169769f7';
-const form_config_id = '61784bb470b33200122469a1';
+const form_config_id = '6218742cc113db00169838fb';
 
 const LAST_NAME = ['Nguyễn', 'Lê', 'Trần', 'Phan', 'Võ', 'Hoàng', 'Đặng', 'Bùi', 'Đỗ'];
-const productsCheckout = ['46765:1:899000::|Mã 01 - Coco Noir Chanel (black)|282:Giảm thêm 100.000đ:799000', '46766:1:899000::|Mã 02 - Coco Mademoiselle Edt (White)|282:Giảm thêm 100.000đ:799000', '46767:1:899000::|Mã 03 - Coco Vaporisateur Spray (Yellow)|282:Giảm thêm 100.000đ:799000', '46770:1:899000::|Mã 04 - No5 Chanel|282:Giảm thêm 100.000đ:799000', '46771:1:899000::|Mã 05 - Chanel Chance Eau Tendre|282:Giảm thêm 100.000đ:799000', '46772:1:899000::|Mã 06 - Gucci Bloom|282:Giảm thêm 100.000đ:799000', '9211:1:899000::|Mã 07 - Bleu De Chanel|282:Giảm thêm 100.000đ:799000', '46776:1:899000::|Mã 08 - Versace Eros Man EDT|282:Giảm thêm 100.000đ:799000', '46780:1:899000::|Mã 09 - Dior Sauvage|282:Giảm thêm 100.000đ:799000', '46781:1:899000::|Mã 10 - Acqua Di Gio|282:Giảm thêm 100.000đ:799000', '46784:1:899000::|Mã 11 - Allure Homme Sport|282:Giảm thêm 100.000đ:799000'];
+const productsCheckout = [
+  '46765:1:899000::|Mã 01 - Coco Noir Chanel (black)|282:Giảm thêm 100.000đ:799000',
+  '46766:1:899000::|Mã 02 - Coco Mademoiselle Edt (White)|282:Giảm thêm 100.000đ:799000',
+  '46767:1:899000::|Mã 03 - Coco Vaporisateur Spray (Yellow)|282:Giảm thêm 100.000đ:799000',
+  '46770:1:899000::|Mã 04 - No5 Chanel|282:Giảm thêm 100.000đ:799000',
+  '46771:1:899000::|Mã 05 - Chanel Chance Eau Tendre|282:Giảm thêm 100.000đ:799000',
+  '46772:1:899000::|Mã 06 - Gucci Bloom|282:Giảm thêm 100.000đ:799000',
+  '9211:1:899000::|Mã 07 - Bleu De Chanel|282:Giảm thêm 100.000đ:799000',
+  '46776:1:899000::|Mã 08 - Versace Eros Man EDT|282:Giảm thêm 100.000đ:799000',
+  '46780:1:899000::|Mã 09 - Dior Sauvage|282:Giảm thêm 100.000đ:799000',
+  '46781:1:899000::|Mã 10 - Acqua Di Gio|282:Giảm thêm 100.000đ:799000',
+  '46784:1:899000::|Mã 11 - Allure Homme Sport|282:Giảm thêm 100.000đ:799000'
+];
 
 const getDataKey = () => {
   const a = form_config_id + '|' + ladipage_id + '|' + Date.now() + '|' + performanceNow();
@@ -31,8 +43,8 @@ const checkout = async (name: string, add: string, phone: string) => {
         const ranmdomProductIndex = randomIntFromInterval(1, 11);
         products.push(productsCheckout[ranmdomProductIndex - 1]);
       }
-      await sendForm1(name, add, phone, products, dataKey);
-      await sendForm2(name, add, phone, products, dataKey, checkoutToken);
+      await sendForm1(name, add, phone, products, dataKey, form_config_id, ladipage_id);
+      await sendForm2(name, add, phone, products, dataKey, checkoutToken, form_config_id, ladipage_id);
     }
   } catch (e) {
     console.error('checkout error', e);
@@ -78,7 +90,7 @@ const main = async () => {
         if (randomIntFromInterval(1, 5) >= 3) {
           const _namePre = ['Anh', 'anh', 'chị', 'Chị', 'Bác', 'Ông', 'bác'];
           const _nameArrSp = _add.name.split(' ');
-          _add.name = `${_namePre[randomIntFromInterval(1, _namePre.length) - 1]} ${_nameArrSp[randomIntFromInterval(1, _nameArrSp.length)-1]}`;
+          _add.name = `${_namePre[randomIntFromInterval(1, _namePre.length) - 1]} ${_nameArrSp[randomIntFromInterval(1, _nameArrSp.length) - 1]}`;
         }
 
         console.log(`name: '${_add.name}' add: '${_add.add}' telephone: '${_add.telephone}'`);
