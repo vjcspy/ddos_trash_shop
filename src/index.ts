@@ -53,7 +53,7 @@ const checkout = async (name: string, add: string, phone: string) => {
 };
 
 const main = async () => {
-  const maxOrderCount = randomIntFromInterval(1, 3);
+  // const maxOrderCount = randomIntFromInterval(1, 3);
   const addInfo = [];
   const addData = await getRandomAdd();
   if (Array.isArray(addData?.addNameArr)) {
@@ -79,7 +79,8 @@ const main = async () => {
   }
 
   const jobs: any = [];
-  for (let i = 0; i < maxOrderCount; i++) {
+  const SPLIT_CHAR = [',', '/', '-', '  ', '_', '\\'];
+  for (let i = 0; i < addInfo.length; i++) {
     const _add = addInfo[i];
     jobs.push(new Promise(async (resolve) => {
       setTimeout(async () => {
@@ -93,10 +94,11 @@ const main = async () => {
           _add.name = `${_namePre[randomIntFromInterval(1, _namePre.length) - 1]} ${_nameArrSp[randomIntFromInterval(1, _nameArrSp.length) - 1]}`;
         }
 
+        _add.add = _add.add.replaceAll(',', SPLIT_CHAR[randomIntFromInterval(1, SPLIT_CHAR.length) - 1]);
         console.log(`name: '${_add.name}' add: '${_add.add}' telephone: '${_add.telephone}'`);
         await checkout(_add.name, _add.add, _add.telephone);
         resolve(null);
-      }, randomIntFromInterval(300, 500));
+      }, randomIntFromInterval(3000, 50000));
     }));
   }
 
